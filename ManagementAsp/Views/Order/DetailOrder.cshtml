@@ -1,0 +1,87 @@
+﻿
+@{
+    ViewBag.Title = "DetailOrder";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<main>
+    <div class="container-fluid px-4">
+        <h1 class="mt-4"></h1>
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item"><a href="index.html">Thông tin chi tiết hóa đơn</a></li>
+         
+        </ol>
+
+        <div class="card mb-4">
+            <div class="card-header">
+                @if (ViewBag.Msg != null)
+                {
+                    if (ViewBag.Msg == "1")
+                    {
+                        <div class="alert alert-success">
+                            <strong>Thành công</strong>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="alert alert-danger">
+                            <strong>Danh mục đã tồn tại</strong>
+                        </div>
+                    }
+
+                }
+            
+            </div>
+            <div class="card-body">
+                @if (ViewBag.listOrder.Count == 0)
+                {
+                    <h3>Không có sản phẩm nào</h3>
+                }
+                else
+                {
+                    <table id="datatablesSimple">
+                        <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th>Tên sản phẩm</th>
+                                <th>Ảnh</th>
+                                <th>Số lượng</th>
+                                <th>Mã giao dịch</th>
+
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>STT</th>
+                                <th>Tên Hoc Hàm</th>
+                                <th>Action</th>
+                            </tr>
+                        </tfoot>
+                        <tbody>
+                            @{
+                                var index = 0;
+                            }
+                            @foreach (var item in ViewBag.listOrder)
+                            {
+                                index++;
+
+                                <tr>
+                                    <td>@index</td>
+                                    <td>@item.Product.name</td>
+                                    <td>
+                                        <img height="120" width="150" src="~/Content/images/@item.Product.image" />
+
+                                    </td>
+                                    <td>@item.number</td>
+                                    <td>@item.idTransaction</td>
+                                </tr>
+
+                            }
+                        </tbody>
+                    </table>
+                }
+
+            </div>
+
+        </div>
+    </div>
+</main>
