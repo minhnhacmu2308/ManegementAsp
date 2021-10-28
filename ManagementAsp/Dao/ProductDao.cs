@@ -50,5 +50,12 @@ namespace ManagementAsp.Dao
         {
             return myDb.products.Where(x => x.idProduct == id).FirstOrDefault();
         }
+        public void updateNumber(Product product)
+        {
+            var obj = myDb.products.FirstOrDefault(x => x.idProduct == product.idProduct);
+            obj.number = product.number;
+            myDb.SaveChanges();
+        }
+
     }
 }

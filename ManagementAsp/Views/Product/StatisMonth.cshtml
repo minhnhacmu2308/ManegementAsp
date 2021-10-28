@@ -1,0 +1,104 @@
+﻿
+@{
+    ViewBag.Title = "StatisMonth";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<main>
+    <div class="container-fluid px-4">
+        <h3 class="mt-4">Thống kê mặt hàng bán được theo tháng @ViewBag.Month</h3>
+
+
+        <div class="card mb-4">
+            <div class="card-header">
+                <form method="POST" action="/Product/StatisMonth" class="register-form" id="register-form">
+                    <div class="row" style="justify-content:space-around !important">
+                        <div class="col-3">
+                            <label for="category-film"
+                                   class="col-form-label"></label>
+                            <select class="form-select" name="thang" aria-label="Default select example">
+                                <option value="" selected>Chọn Tháng</option>
+                                @{
+                                    for (int i = 1; i <= 12; i++)
+                                    {
+                                        <option value="@i" >Tháng @i</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                        <div class="col-2">
+                            <label for="category-film"
+                                   class="col-form-label"></label><br />
+                            <button type="submit" class="btn btn-success" >
+
+                                Xem
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="card-body">
+                <table id="datatablesSimple">
+                    <thead>
+                        <tr>
+                            <th width="50">STT</th>
+                            <th>Tên sản phẩm</th>
+                            <th width="120">Ảnh</th>
+                            <th width="100">Danh mục</th>
+                            <th>Giá tiền</th>
+                            <th width="200">Số lượng bán được</th>
+
+
+
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>STT</th>
+                            <th>Tên sản phẩm</th>
+                            <th>Action</th>
+                        </tr>
+                    </tfoot>
+
+                    <tbody>
+                        @{
+                            var index = 0;
+                        }
+                        @if (ViewBag.ListS != null) { 
+                        foreach (var item in ViewBag.ListS)
+                        {
+                            index++;
+                            var infor = new ManagementAsp.Dao.ProductDao().getProductById(item.idProduct);
+                            <tr>
+                                <td>@index</td>
+                                <td>@infor.name</td>
+                                <td>
+                                    <img height="120" width="150" src="~/Content/images/@infor.image" />
+
+                                </td>
+
+                                <td>@infor.Category.name</td>
+
+
+
+                                <td>@infor.cost</td>
+
+                                <td>
+                                    @item.totalNumber
+                                </td>
+
+                            </tr>
+
+                            }
+                        }
+                        else
+                        {
+
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</main>
+

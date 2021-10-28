@@ -36,5 +36,15 @@ namespace ManagementAsp.Dao
             return myDb.orders.Where(x => x.idTransaction == idTran).ToList();
         }
 
+        public List<Statis> getStatis()
+        {
+            string sql = "select idProduct,sum(number) as 'totalNumber' from Orders Group by idProduct Order by sum(number) Desc";
+            return myDb.Database.SqlQuery<Statis>(sql).ToList();
+        }
+        public List<Statis> getStatisMonth(int month)
+        {
+            string sql = "select a.idProduct,sum(a.number) as 'totalNumber' from Orders as a, Transactions as b Where a.idTransaction = b.idTranSaction and Month(b.createdAt) = '" + month + "' Group by idProduct Order by sum(number) Desc";
+            return myDb.Database.SqlQuery<Statis>(sql).ToList();
+        }
     }
 }

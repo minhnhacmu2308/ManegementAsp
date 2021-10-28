@@ -10,12 +10,8 @@
 
 <main>
     <div class="container-fluid px-4">
-        <h1 class="mt-4">Danh mục</h1>
-        <ol class="breadcrumb mb-4">
-            <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-            <li class="breadcrumb-item active">Danh mục</li>
-        </ol>
-
+        <h1 class="mt-4">Danh sách đơn hàng</h1>
+       
         <div class="card mb-4">
             <div class="card-header">
                 @if (ViewBag.Msg != null)
@@ -65,53 +61,54 @@
                             index++;
                             var idModelDel = "exampleModalDel" + item.idTranSaction;
                             var idEx1 = "#exampleModalLabel" + item.idTranSaction;
-                            <tr>
-                                <td>@index</td>
-                                <td>@item.idTranSaction</td>
-                                <td>@item.amount</td>
-                                <td>
+                        <tr>
+                            @{string dtnow = item.createdAt.ToString("yyyyMMdd"); }
+                            <td>@index</td>
+                            <td>HD_@dtnow _@item.idTranSaction</td>
+                            <td>@item.amount</td>
+                            <td>
 
-                                    <button style="width:120px" type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                            data-bs-target="@idEx1">
-                                        Thêm chi tiết
-                                    </button>
-                                    <a style="width:120px"  class="btn btn-warning" href="/Order/DetailOrder?id=@item.idTranSaction">
-                                        Xem chi tiết
-                                    </a>
-                                    <button type="button" data-bs-toggle="modal" data-bs-target="#@idModelDel" style="width:100px" class="btn btn-danger"> Xóa</button>
-                                    <div class="modal fade" id="@idModelDel" tabindex="-1"
-                                         aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLabel">Bạn chắc chắn muốn xóa ?</h5>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                            aria-label="Close"></button>
-                                                </div>
+                                <button style="width:120px" type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                        data-bs-target="@idEx1">
+                                    Thêm chi tiết
+                                </button>
+                                <a style="width:120px" class="btn btn-warning" href="/Order/DetailOrder?id=@item.idTranSaction">
+                                    Xem chi tiết
+                                </a>
+                                <button type="button" data-bs-toggle="modal" data-bs-target="#@idModelDel" style="width:100px" class="btn btn-danger"> Xóa</button>
+                                <div class="modal fade" id="@idModelDel" tabindex="-1"
+                                     aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Bạn chắc chắn muốn xóa ?</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                            </div>
 
-                                                <div class="modal-body">
-                                                    Mã hóa đơn : @item.idTranSaction
-                                                    <form action="/Order/Delete" method="post">
-                                                        <input type="hidden" class="form-control" id="id" name="idTran" value="@item.idTranSaction">
-                                                        <div class="modal-footer" style="margin-top: 20px">
-                                                            <button style="width:100px" type="button" class="btn btn-secondary"
-                                                                    data-bs-dismiss="modal">
-                                                                Đóng
-                                                            </button>
-                                                            <button style="width:100px" type="submit" class="btn btn-danger"> Xóa</button>
+                                            <div class="modal-body">
+                                                Mã hóa đơn : @item.idTranSaction
+                                                <form action="/Order/Delete" method="post">
+                                                    <input type="hidden" class="form-control" id="id" name="idTran" value="@item.idTranSaction">
+                                                    <div class="modal-footer" style="margin-top: 20px">
+                                                        <button style="width:100px" type="button" class="btn btn-secondary"
+                                                                data-bs-dismiss="modal">
+                                                            Đóng
+                                                        </button>
+                                                        <button style="width:100px" type="submit" class="btn btn-danger"> Xóa</button>
 
-                                                        </div>
+                                                    </div>
 
-                                                    </form>
-
-                                                </div>
+                                                </form>
 
                                             </div>
+
                                         </div>
                                     </div>
-                                </td>
+                                </div>
+                            </td>
 
-                            </tr>
+                        </tr>
                             var idEx = "exampleModalLabel" + item.idTranSaction;
                             <!-- Modal Update-->
                             <div class="modal fade" id="@idEx" tabindex="-1"

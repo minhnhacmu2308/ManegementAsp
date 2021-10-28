@@ -4,12 +4,11 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <main>
+    @{ var infor = ViewBag.MaHD;}
     <div class="container-fluid px-4">
-        <h1 class="mt-4"></h1>
-        <ol class="breadcrumb mb-4">
-            <li class="breadcrumb-item"><a href="index.html">Thông tin chi tiết hóa đơn</a></li>
-         
-        </ol>
+        @{string dtnow = infor.createdAt.ToString("yyyyMMdd"); }
+        <h2 class="mt-4">Hóa đơn : <strong>HD_@dtnow _@infor.idTranSaction</strong></h2>
+
 
         <div class="card mb-4">
             <div class="card-header">
@@ -29,7 +28,7 @@
                     }
 
                 }
-            
+
             </div>
             <div class="card-body">
                 @if (ViewBag.listOrder.Count == 0)
@@ -45,7 +44,7 @@
                                 <th>Tên sản phẩm</th>
                                 <th>Ảnh</th>
                                 <th>Số lượng</th>
-                                <th>Mã giao dịch</th>
+                                <th>Tổng tiền</th>
 
                             </tr>
                         </thead>
@@ -72,7 +71,9 @@
 
                                     </td>
                                     <td>@item.number</td>
-                                    <td>@item.idTransaction</td>
+                                    <td>@{var total = (item.number * item.Product.cost);}
+                                    @total
+                                    </td>
                                 </tr>
 
                             }

@@ -5,11 +5,8 @@
 }
 <main>
     <div class="container-fluid px-4">
-        <h1 class="mt-4">Sản phẩm</h1>
-        <ol class="breadcrumb mb-4">
-            <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-            <li class="breadcrumb-item active">Sản phẩm</li>
-        </ol>
+        <h1 class="mt-4">Sản phẩm tồn kho</h1>
+       
 
         <div class="card mb-4">
             <div class="card-header">
@@ -42,10 +39,10 @@
                             <th>Tên sản phẩm</th>
                             <th width="120">Ảnh</th>
                             <th width="100">Danh mục</th>
-                            <th>Giá</th>
-                            <th width="100">Số lượng</th>
-                            <th>Mô tả</th>
-                            <th width="250">Action</th>
+                          
+                            <th width="200">Số lượng tồn kho</th>
+                            
+                            <th width="340">Thao tác</th>
 
                         </tr>
                     </thead>
@@ -73,19 +70,63 @@
                                 <img height="120" width="150" src="~/Content/images/@item.image"/>
                            
                             </td>
-                            @foreach (var item1 in ViewBag.listC)
-                            {
-                                if (item1.idCat == item.idCat)
-                                {
-                                    <td>@item.name</td>
-                                }
-                            }
+                            
+                            <td>@item.Category.name</td>
+                            
 
-                            <td>@item.cost</td>
+                            
                             <td>@item.number</td>
-                            <td>@Html.Raw(item.description)</td>
+                            
                             <td>
+                                @{
+                                    var idModelDes = "exampleModalDes" + item.idProduct;
+                                }
+                                <button type="button" class="btn btn-warning" data-bs-toggle="modal"
+                                        data-bs-target="#@idModelDes" style="width: 100px !important">
+                                    Chi tiết
+                                </button>
+                                <div class="modal fade" id="@idModelDes" tabindex="-1" aria-labelledby="exampleModalLabel"
+                                     aria-hidden="true">
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Chi tiết</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="row">
+                                                    <div class="col-4">
+                                                        <img style="width: 100% !important;height: 200px !important;" src="~/Content/images/@item.image" class="img-fluid">
+                                                    </div>
+                                                    <div class="col-8">
+                                                        <div class="">
+                                                            <label for="category-film" class="col-form-label" style="font-weight:bold;width : 140px">Tên sản phẩm</label>
+                                                            :@item.name
+                                                        </div>
+                                                        <div class="">
+                                                            <label for="category-film" class="col-form-label" style="font-weight:bold;width : 140px">Danh mục</label>
+                                                            :@item.Category.name
+                                                        </div>
+                                                        <div class="">
+                                                            <label for="category-film" class="col-form-label" style="font-weight:bold;width : 140px">Giá</label>
+                                                            : @item.cost
+                                                        </div>
+                                                        <div class="">
+                                                            <label for="category-film" class="col-form-label" style="font-weight:bold;width : 140px">Số lượng tồn kho</label>
+                                                            : @item.number
+                                                        </div>
+                                                        
+                                                    </div>
+                                                    <div class="">
+                                                        <label for="category-film" class="col-form-label" style="font-weight:bold;">Nội dung</label><br />
+                                                        @Html.Raw(item.description)
+                                                    </div>
+                                                </div>
+                                            </div>
 
+                                        </div>
+                                    </div>
+                                </div>
                                 <button style="width:100px" type="button" class="btn btn-primary" data-bs-toggle="modal"
                                         data-bs-target="@idEx1">
                                     Sửa

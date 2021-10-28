@@ -37,6 +37,7 @@ namespace ManagementAsp.Controllers
         public ActionResult AddDetail(FormCollection form)
         {
             Order order = new Order();
+            Product pro = new Product();
             var idTran = Int32.Parse(form["idTran"]);          
             var number = Int32.Parse(form["number"]);
             var idProduct = Int32.Parse(form["product"]);
@@ -47,6 +48,10 @@ namespace ManagementAsp.Controllers
             order.idTransaction = idTran;
             order.status = 1;
             orderDao.add(order);
+            var product = productDao.getProductById(idProduct);
+            pro.idProduct = idProduct;
+            pro.number = (product.number - number);
+            productDao.updateNumber(pro);
             return RedirectToAction("Index", new { msg = "1" });
         }
 
@@ -61,6 +66,7 @@ namespace ManagementAsp.Controllers
         [HttpGet]
         public ActionResult DetailOrder(int id)
         {
+            ViewBag.MaHd = transactionDao.getTransaction(id);
             ViewBag.listOrder = orderDao.getListOrder(id);
             return View();
         }

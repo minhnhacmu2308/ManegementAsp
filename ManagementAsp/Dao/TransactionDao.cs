@@ -40,5 +40,9 @@ namespace ManagementAsp.Dao
             myDb.transactions.Remove(obj);
             myDb.SaveChanges();
         }
+        public Transaction getTransaction(int id)
+        {
+            return myDb.transactions.Where(t => t.idTranSaction == id).FirstOrDefault();
+        }
     }
 }

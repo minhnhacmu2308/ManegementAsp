@@ -1,0 +1,74 @@
+﻿
+@{
+    ViewBag.Title = "Statis";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<main>
+    <div class="container-fluid px-4">
+        <h1 class="mt-4">Sản phẩm tồn kho</h1>
+
+
+        <div class="card mb-4">
+            <div class="card-header">
+            </div>
+            <div class="card-body">
+                <table id="datatablesSimple">
+                    <thead>
+                        <tr>
+                            <th width="50">STT</th>
+                            <th>Tên sản phẩm</th>
+                            <th width="120">Ảnh</th>
+                            <th width="100">Danh mục</th>
+                            <th>Giá tiền</th>
+                            <th width="200">Số lượng bán chạy</th>
+
+
+
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>STT</th>
+                            <th>Tên sản phẩm</th>
+                            <th>Action</th>
+                        </tr>
+                    </tfoot>
+
+                    <tbody>
+                        @{
+                            var index = 0;
+                        }
+                        @foreach (var item in ViewBag.ListS)
+                        {
+                            index++;
+                            var infor = new ManagementAsp.Dao.ProductDao().getProductById(item.idProduct);
+                            <tr>
+                                <td>@index</td>
+                                <td>@infor.name</td>
+                                <td>
+                                    <img height="120" width="150" src="~/Content/images/@infor.image" />
+
+                                </td>
+
+                                <td>@infor.Category.name</td>
+
+
+
+                                <td>@infor.cost</td>
+
+                                <td>
+                                    @item.totalNumber
+                                </td>
+
+                            </tr>
+
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</main>
+
+

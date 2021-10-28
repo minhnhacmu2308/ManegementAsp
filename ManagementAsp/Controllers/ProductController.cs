@@ -12,6 +12,7 @@ namespace ManagementAsp.Controllers
     {
         ProductDao productDao = new ProductDao();
         CategoryDao categoryDao = new CategoryDao();
+        OrderDao orderDao = new OrderDao();
         // GET: Product
         public ActionResult Index(string msg)
         {
@@ -20,7 +21,26 @@ namespace ManagementAsp.Controllers
             ViewBag.listC = categoryDao.getAll();
             return View(list);
         }
-
+        public ActionResult Statis()
+        {
+            ViewBag.ListS = orderDao.getStatis();
+            return View();
+        }
+        public ActionResult StatisMonth(FormCollection form)
+        {
+            var id = form["thang"];
+            if (id == null)
+            {
+                return View();
+            }
+            else
+            {
+                var thang = Int32.Parse(id);
+                ViewBag.ListS = orderDao.getStatisMonth(thang);
+                ViewBag.Month = id;
+                return View();
+            }
+        }
         [HttpPost]
         [ValidateInput(false)]
         public ActionResult Add(FormCollection form)
